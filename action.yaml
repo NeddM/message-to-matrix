@@ -17,7 +17,7 @@ runs:
   steps:
     - shell: bash
       run: |
-        url="https://${{ inputs.base_url }}/_matrix/client/r0/rooms/${{ inputs.room_id }}/send/m.room.message"
+        url="${{ inputs.base_url }}/_matrix/client/r0/rooms/${{ inputs.room_id }}/send/m.room.message"
 
         headers="Authorization: Bearer ${{ inputs.token }}"
         data=$(cat <<EOF
