@@ -1,0 +1,40 @@
+name: Send message to Matrix
+description: Action that sends a message log of the action to a Matrix room
+
+inputs:
+  token:
+    description: Token of your account
+  room_id:
+    description: Room ID where you want to post the comment
+  base_url:
+    description: Base URL
+    default: "https://matrix-client.matrix.org"
+  message:
+    description: Message that you want to send
+
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        token='${{ inputs.token }}'
+        room_id='${{ inputs.room_id }}'
+        url="https://${{ inputs.base_url }}/_matrix/client/r0/rooms/$room_id/send/m.room.message"
+
+        headers="Authorization: Bearer $token"
+        data=$(cat <<EOF
+        {
+            "body": "hello matrix",
+            "format": "org.matrix.custom.html",
+            "formatted_body": "hello <b>matrix</b>",
+            "msgtype": "m.text"
+        }
+        EOF
+        )
+
+        curl -X POST \
+          "$url" \
+          -H "$headers" \
+          -H "Content-Type: application/json" \
+          -d "$data"
+
