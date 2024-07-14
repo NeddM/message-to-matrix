@@ -36,4 +36,3 @@ runs:
           -H "$headers" \
           -H "Content-Type: application/json" \
           -d "$data"
-
