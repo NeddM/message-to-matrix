@@ -11,6 +11,7 @@ inputs:
     default: "https://matrix-client.matrix.org"
   message:
     description: Message that you want to send
+    default: "Ejecutado el workflow ${{ github.workflow }} mediante ${{ github.event_name }}"
 
 runs:
   using: composite
